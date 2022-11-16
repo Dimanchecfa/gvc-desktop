@@ -1,24 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
+import { AuthProvider } from './utilities/context/authContext';
+import { BrowserRouter } from 'react-router-dom';
+import { renderRoutes } from './routers/renderRouter';
+import { ToastContainer } from 'react-toastify';
+import { routes } from './routers/routes';
+import { AppProvider } from "./utilities/context/appContext";
+import MainLoadable from "./components/loadable";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppProvider>
+            <AuthProvider>
+                
+                    <BrowserRouter>
+                        <MainLoadable>
+                            {renderRoutes(routes)}
+                            <ToastContainer />
+                        </MainLoadable>
+                    </BrowserRouter>
+                
+            </AuthProvider>
+        </AppProvider>
   );
 }
 

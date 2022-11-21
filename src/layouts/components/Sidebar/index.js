@@ -28,6 +28,21 @@ const Sidebar = ({ menuElements }) => {
               data-accordion="false"
             >
               {menuElements.map((menuElement, index) => {
+                if(!menuElement?.navItems)
+                {
+                  return (
+                    <>
+                      <li className="nav-item active">
+                          <Link  className={`nav-link ${selected === menuElement.id || url === menuElement.link ? 'active' : ''}`} onClick={() => setSelected(menuElement.id)} to={menuElement.link}>
+                            <i className="nav-icon fas fa-circle" />
+                            <p>
+                              {menuElement.title}
+                            </p>
+                          </Link>
+                        </li>
+                    </>
+                  )
+                }
                 return (
                   <>
                     <li className="nav-header">---{" "}{menuElement?.header}</li>

@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
 import React from "react";
 
-const Searcher = ({ type, titre, value, placeholder, onChange , fullWidth , size="small" }) => {
+const Searcher = ({ type, titre, value, placeholder, onChange , fullWidth , size="small" , label="Rechercher"}) => {
     return (
         <div className="row">
             <div className="col-md-4">
@@ -11,7 +11,7 @@ const Searcher = ({ type, titre, value, placeholder, onChange , fullWidth , size
                     </div>
                     <TextField 
                     id="outlined-basic" 
-                    label="Outlined" 
+                    label={label}
                     variant="outlined"
                     type={type}
                     value={value}

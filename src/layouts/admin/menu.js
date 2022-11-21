@@ -1,14 +1,15 @@
 export const menuAdmin = [
     {
+        id : 0,
+        title : 'Dashboard',
+        icon : () => <i class="fa-solid fa-gauge"></i>,
+        link : '/admins/users',
+    },
+    {
         id : 1,
         header : 'Gestions',
         navItems : [
-            {
-                id : 1,
-                title : 'Dashboard',
-                icon : () => <i class="fa-solid fa-gauge"></i>,
-                link : '/admins/users',
-            },
+           
             {
                 id: 2,
                 title : 'Gestion des stocks',
@@ -21,31 +22,56 @@ export const menuAdmin = [
                 icon : 'fas fa-tachometer-alt',
                 link : '/sales',
             },
+        ]
+    },
+   
+    {
+        id: 3,
+        header : 'Immatriculation',
+        navItems : [
             {
-                id: 4,
-                title : 'Gestion d\'immatriulation',
+                id: 10,
+                title : 'disponibilité',
                 icon : 'fas fa-tachometer-alt',
-                link : '/registration',
+                link : '/commercial',
             },
             {
-                id: 5,
-                title : 'Gestion des cycles',
+                id: 11,
+                title :  'depot',
+                icon : 'fas fa-tachometer-alt',
+                link : '/lot',
+            },
+            {
+                id: 12,
+                title :  'CMC',
+                icon : 'fas fa-tachometer-alt',
+                link : '/certificat',
+            },
+        ]
+    },
+    {
+        id: 3,
+        header : 'Inventaires',
+        navItems : [
+            {
+                id: 12,
+                title : 'ventes',
+                icon : 'fas fa-tachometer-alt',
+                link : '/commercial',
+            },
+            {
+                id: 12,
+                title :  'motos en stock',
                 icon : 'fas fa-tachometer-alt',
                 link : '/admin/dashboard',
-        
             },
             {
-                id: 6,
-                title : 'Redevabilites',
+                id: 10,
+                title: 'redevabilites',
                 icon : 'fas fa-tachometer-alt',
-                link : '/admin/dashboard',
-            },
-            {
-                id: 7,
-                title : 'Inventaites',
-                icon : 'fas fa-tachometer-alt',
-                link : '/admin/dashboard',
-            },
+                link : '/redevabilities',
+
+            }
         ]
     },
     {

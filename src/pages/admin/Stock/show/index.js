@@ -9,44 +9,80 @@ import PaginationPage from "../../../../components/paginate";
 import { errorNotif } from '../../../../components/notification'
 import Searcher from '../../../../components/data-table-search'
 import ReactTooltip from 'react-tooltip'
-import {  fetchStock} from '../../../../api/request'
+import { getMotorsByStockId } from '../../../../api/request'
 
 const Stock = () => {
     const { state } = useLocation();
+    console.log(state)
     const navigate = useNavigate()
     const [isLoading , setIsLoading] = React.useState(false)
     const [search , setSearch] = React.useState('')
-    const [motors , setMotors] = React.useState(state?.motors ?? [])
+    const [motors , setMotors] = React.useState(state?.moto ?? [])
 
     const onClickRow = (row , action = null) => {
-        navigate(`/stock/edit`, {state: {uuid: row.uuid}})
+        navigate(`/motors/edit`, {state: row})
     }
     useEffect(() => {
-        
-        const _motors = state?.motors?.filter((motor) => {
-            return motor?.numero_serie?.toLowerCase().match(search?.toLowerCase())
-        })
-        console.log(_motors)
-        setMotors(_motors)
+        (async () => await fetchMotors())()
     }, [search])
+
+
+      const fetchMotors = async (page) => {
+        try {
+            const response = await getMotorsByStockId(state?.id);
+            const dataReceive = response?.data ?? null;
+            const _motors = dataReceive?.data ?? [];
+            console.log(_motors)
+            const filterdMotors = _motors?.filter((motor) => {
+                return motor?.numero_serie?.toLowerCase().match(search?.toLowerCase())
+            })
+            if (_motors?.length > 0) {
+                setMotors(filterdMotors);
+            }
+            setIsLoading(false);
+        } catch (error) {
+            setIsLoading(false);
+            if (typeof error === "object") {
+            } else {
+                errorNotif("Avertissement", error);
+            }
+        }
+    };
+
     return (
 <>
-            <PageHeader title="Stock">
-                <div className="offset-sm-10 col-sm-8">
+            <PageHeader title={
+                `Details du stock ${state?.numero}`
+            }>
+                <div className="offset-sm-7 col-sm-8">
                 <Button
                     className="mr-2"
                     variant="dark"
                     size="md"
-                    onClick={() => navigate(-1)}
+                    onClick={() => navigate('/stock')}
                 >
-                    <i className="zmdi zmdi-accounts-list-alt"></i> Retour à la
-                    liste
+                    <i className="zmdi zmdi-accounts-list-alt"></i> Retour
                 </Button>
                 <Button
+                 className="mr-2"
                     variant="primary"
-                    onClick={() => navigate('/admins/stock/add')}
+                    onClick={() => navigate('/motors/add' , {state: {id: state?.id , numero: state?.numero}})}
                 >
-                    Ajouter un stock 
+                    Ajouter une moto
+                </Button>
+                <Button
+                className="mr-2"
+                    variant="success"
+                    onClick={() => navigate('/stock/edit' , {state: state})}
+                >
+                    Modifier
+                </Button>
+                <Button
+                    
+                    variant="danger"
+                    onClick={() => navigate('/motors/add' , {state: {id: state?.id , numero: state?.numero}})}
+                >
+                   Supprimer
                 </Button>
                 </div>
             </PageHeader>
@@ -79,6 +115,7 @@ const Stock = () => {
                                 )
                             }
                             pagination
+                            className='table-responsive'
                             
                         />
                     </>

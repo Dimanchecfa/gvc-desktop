@@ -11,8 +11,40 @@ export const AdminRoutes = [
         guard: AuthGuard
     },
     {
+        path: '/stock/add',
+        component: lazy(() => import('../../pages/admin/Stock/add')),
+        exact : true,
+        layout: "Admin",
+        permissions: ["admin"],
+        guard: AuthGuard
+    },
+    {
         path: '/stock/details',
         component: lazy(() => import('../../pages/admin/Stock/show')),
+        exact : true,
+        layout: "Admin",
+        permissions: ["admin"],
+        guard: AuthGuard
+    },
+    {
+        path: '/stock/edit',
+        component: lazy(() => import('../../pages/admin/Stock/edit')),
+        exact : true,
+        layout: "Admin",
+        permissions: ["admin"],
+        guard: AuthGuard
+    },
+    {
+        path: '/motors/add',
+        component: lazy(() => import('../../pages/admin/Motors/add')),
+        exact : true,
+        layout: "Admin",
+        permissions: ["admin"],
+        guard: AuthGuard
+    },
+    {
+        path: '/motors/edit',
+        component: lazy(() => import('../../pages/admin/Motors/edit')),
         exact : true,
         layout: "Admin",
         permissions: ["admin"],
@@ -50,5 +82,53 @@ export const AdminRoutes = [
         permissions: ["admin"],
         guard: AuthGuard
     },
+    {
+        path: '/lot',
+        component: lazy(() => import('../../pages/admin/registration_deposit/all')),
+        exact : true,
+        layout: "Admin",
+        permissions: ["admin"],
+        guard: AuthGuard
+    },
+    {
+        path: '/lot/add',
+        component: lazy(() => import('../../pages/admin/registration_deposit/add')),
+        exact : true,
+        layout: "Admin",
+        permissions: ["admin"],
+        guard: AuthGuard
+    },
+    {
+        path: '/lot/details',
+        component: lazy(() => import('../../pages/admin/registration_deposit/show')),
+        exact : true,
+        layout: "Admin",
+        permissions: ["admin"],
+        guard: AuthGuard
+    },
+    {
+        path: '/certificat',
+        component: lazy(() => import('../../pages/admin/certificat/all')),
+        exact : true,
+        layout: "Admin",
+        permissions: ["admin"],
+        guard: AuthGuard
+    },
+    {
+        path: '/redevabilities',
+        component: lazy(() => import('../../pages/admin/redevability/all')),
+        exact : true,
+        layout: "Admin",
+        permissions: ["admin"],
+        guard: AuthGuard
+    },
+    {
+        path: '/sales/edit',
+        component: lazy(() => import('../../pages/admin/Sell/edit')),
+        exact : true,
+        layout: "Admin",
+        permissions: ["admin"],
+        guard: AuthGuard
+    }
     
 ]

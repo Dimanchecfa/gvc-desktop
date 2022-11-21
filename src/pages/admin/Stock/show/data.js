@@ -1,3 +1,4 @@
+import { Avatar } from "@mui/material";
 import moment from "moment";
 import { Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -29,17 +30,13 @@ const tableColums = (onClickBtn) => [
         selector: (row) => (
             <>
                 {
-                    row?.statut === "en stock" ? (
-                        <Badge className="text-white bg-success" bg="">
-                        <small>
+                    row?.statut === "en_stock" ? (
+                        <Badge  bg="success" size="lg">
                             {row?.statut}
-                        </small>
                     </Badge>
                     ) : (
-                        <Badge className="text-white bg-danger" bg="">
-                        <small>
+                        <Badge  bg="danger" size="lg">
                             {row?.statut}
-                        </small>
                     </Badge>
                     )
                 }

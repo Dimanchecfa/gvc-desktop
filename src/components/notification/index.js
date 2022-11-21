@@ -34,7 +34,7 @@ export const successNotif = (title, message, status = "success") => {
         />,
         {
             transition: Slide,
-            hideProgressBar: true,
+            // hideProgressBar: true,
             autoClose: 5000,
             closeButton: true,
         }

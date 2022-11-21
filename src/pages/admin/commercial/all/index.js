@@ -54,10 +54,11 @@ const Stock = () => {
       <PageHeader title="Stock">
         <div className="offset-sm-10 col-sm-9">
           <Button
+            size="sm"
             variant="primary"
-            onClick={() => navigate("/admins/stock/add")}
+            onClick={() => navigate("/commercial/add")}
           >
-            Ajouter un stock
+            Ajouter un commerciale
           </Button>
         </div>
       </PageHeader>

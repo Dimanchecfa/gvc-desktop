@@ -50,7 +50,7 @@ const Stock = () => {
     };
 
     const onClickRow = (row , action = null) => {
-        navigate(`/stock/details`, {state: {uuid: row.uuid , motors : row.moto}})
+        navigate(`/stock/details`, {state: row})
     }
 
     return (
@@ -59,7 +59,7 @@ const Stock = () => {
                 <div className="offset-sm-10 col-sm-9">
                 <Button
                     variant="primary"
-                    onClick={() => navigate('/admins/stock/add')}
+                    onClick={() => navigate('/stock/add')}
                 >
                     Ajouter un stock 
                 </Button>

@@ -1,6 +1,7 @@
 import { TextField } from "@mui/material";
 import React, { useState } from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
+import { BackButton } from "../../../../components/back-button";
 import DropFileImage from "../../../../components/drop-file-image";
 import PageHeader from "../../../../layouts/components/page-header";
 
@@ -16,7 +17,11 @@ const AddCommercial = () => {
   };
   return (
     <>
-      <PageHeader title="Ajouter un commercial"></PageHeader>
+      <PageHeader title="Ajouter un commercial">
+        <div className="offset-sm-10 col-sm-9">
+          <BackButton />
+        </div>
+      </PageHeader>
       <Row>
         <Col md={5} sm={12} xs={12}>
           <Card>

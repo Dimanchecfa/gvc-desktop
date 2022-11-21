@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Button, Card, Spinner } from 'react-bootstrap'
 import DataTable from 'react-data-table-component'
 import { useNavigate } from 'react-router-dom'
@@ -10,12 +10,18 @@ import { errorNotif } from '../../../../components/notification'
 import Searcher from '../../../../components/data-table-search'
 import ReactTooltip from 'react-tooltip'
 import {  fetchSales, fetchStock} from '../../../../api/request'
+import ShowSell from '../components/info-modal'
 
 const Stock = () => {
     const navigate = useNavigate()
     const [isLoading , setIsLoading] = React.useState(false)
     const [sales , setSales] = React.useState([])
+    const rowData = useRef({})
     const [search , setSearch] = React.useState('')
+    const [showModal, setShowModal] = React.useState(false)
+
+    const handleClose = () => setShowModal(false);
+    const handleShow = () => setShowModal(true);
 
     useEffect(() => {
         (async () => await fetchSalesData())()
@@ -49,21 +55,26 @@ const Stock = () => {
     };
 
     const onClickRow = (row , action = null) => {
-        navigate(`/stock/details`, {state: {uuid: row.uuid , motors : row.moto}})
+        setShowModal(true)
+        rowData.current = row
+        
     }
 
     return (
 <>
             <PageHeader title="Stock">
-                <div className="offset-sm-10 col-sm-8">
+                <div className="offset-sm-10 col-sm-9">
                 <Button
+                    className="mr-2"
                     variant="primary"
-                    onClick={() => navigate('/admins/stock/add')}
-                >
-                    Ajouter un stock 
+                    size="md"
+                    onClick={() => navigate('/sales/add')}
+                > 
+                Ajouter une vente
                 </Button>
                 </div>
             </PageHeader>
+            <ShowSell show={showModal} handleClose={handleClose} data={rowData.current} />
             <Card body>
                 
                     <>

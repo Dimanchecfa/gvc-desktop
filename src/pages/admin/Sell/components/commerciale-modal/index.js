@@ -49,7 +49,7 @@ const CommercialModal = ({ show, handleClose, handleSelected }) => {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose} size="lg">
+      <Modal show={show} onHide={handleClose} size="xl">
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
@@ -73,6 +73,7 @@ const CommercialModal = ({ show, handleClose, handleSelected }) => {
             selectableRowsSingle
             selectableRowsHighlight
             pointerOnHover
+            contextActions={<Button variant="primary" size="md"onClick={handleClose}>Selectionnerl</Button>}
             noDataComponent={
               isLoading ? (
                 <Spinner />
@@ -84,10 +85,10 @@ const CommercialModal = ({ show, handleClose, handleSelected }) => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Fermer
           </Button>
           <Button variant="primary" onClick={handleClose}>
-            Save Changes
+            Enregistrer
           </Button>
         </Modal.Footer>
       </Modal>

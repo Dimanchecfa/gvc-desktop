@@ -8,7 +8,7 @@ import PaginationPage from "../../../../../components/paginate";
 import { errorNotif } from "../../../../../components/notification";
 import Searcher from "../../../../../components/data-table-search";
 import ReactTooltip from "react-tooltip";
-import { fetchMotors } from "../../../../../api/request";
+import { fetchMotors, fetchMotorsStocked } from "../../../../../api/request";
 
 const MotorsModal = ({show , handleClose , handleSelected}) => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const MotorsModal = ({show , handleClose , handleSelected}) => {
     try {
       setMotors([]);
       setIsLoading(true);
-      const response = await fetchMotors();
+      const response = await fetchMotorsStocked();
       const dataReceive = response?.data ?? null;
       const _motors = dataReceive?.data ?? [];
       console.log(_motors);
@@ -51,7 +51,7 @@ const MotorsModal = ({show , handleClose , handleSelected}) => {
   return (
     <>
       
-      <Modal show={show} onHide={handleClose} size="lg">
+      <Modal show={show} onHide={handleClose} size="xl">
         <Modal.Header closeButton>
           <Modal.Title>
             Choisissez la moto que vous voulez vendre

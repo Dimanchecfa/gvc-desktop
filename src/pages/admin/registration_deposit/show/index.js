@@ -16,6 +16,8 @@ import {
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { setRegistration } from "../../../../app/slices/stock.slices";
+import { useReactToPrint } from "react-to-print";
+import Print from "../print_views";
 const Stock = () => {
     const { state } = useLocation();
     console.log(state);
@@ -24,6 +26,7 @@ const Stock = () => {
     const [isLoading, setIsLoading] = React.useState(false);
     const [search, setSearch] = React.useState("");
     const selectRows = useRef([]);
+    const array_print = useRef([]);
     const [registredId, setRegistredId] = React.useState([]);
     const regis = useSelector((state) => state.stock.registration);
     const [registrations, setRegistrations] = React.useState(
@@ -56,6 +59,10 @@ const Stock = () => {
         getLastId(row.selectedRows);
         selectRows.current = row.selectedRows;
     };
+    const componentRef = useRef();
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+    });
 
     const getLastId = (selectedRows) => {
         let _registredId = [];
@@ -82,6 +89,7 @@ const Stock = () => {
     const handleDelete = () => {
         console.log("okokokok");
     };
+
     return (
         <>
             <PageHeader title={`Details du lot ${state?.numero_lot}`}>
@@ -94,6 +102,7 @@ const Stock = () => {
                     >
                         <i className="zmdi zmdi-accounts-list-alt"></i> Retour
                     </Button>
+
                     <Button
                         className="mr-2"
                         variant="primary"
@@ -113,6 +122,9 @@ const Stock = () => {
                     </Button>
                 </div>
             </PageHeader>
+            <div style={{ display: "none" }}>
+                <Print ref={componentRef} data={registrations} state={state} />
+            </div>
             <RegistredModal
                 show={showModal}
                 handleClose={() => setShowModal(false)}
@@ -145,6 +157,11 @@ const Stock = () => {
                         }
                         pagination
                         className="table-responsive"
+                        actions={
+                            <Button variant="success" onClick={handlePrint}>
+                                <i className="zmdi zmdi-print"></i> Imprimer
+                            </Button>
+                        }
                     />
                 </>
 

@@ -57,7 +57,7 @@ export const menuAdmin = [
         navItems: [
             {
                 id: 10,
-                title: "disponibilité",
+                title: "disponible",
                 icon: (
                     <AvailableIcon
                         width={24}
@@ -101,19 +101,6 @@ export const menuAdmin = [
         header: "Inventaires",
         navItems: [
             {
-                id: 13,
-                title: "ventes",
-                icon: (
-                    <SalesIcon
-                        width={22}
-                        height={22}
-                        fill="#fff"
-                        className="mr-2 mb-1"
-                    />
-                ),
-                link: "/commercial",
-            },
-            {
                 id: 14,
                 title: "motos en stock",
                 icon: (
@@ -150,12 +137,6 @@ export const menuAdmin = [
                 title: "commerciaux",
                 icon: <CommercialIcon width={22} height={22} fill="#fff" />,
                 link: "/commercial",
-            },
-            {
-                id: 17,
-                title: "emgins",
-                icon: "fas fa-tachometer-alt",
-                link: "/admin/dashboardh",
             },
         ],
     },

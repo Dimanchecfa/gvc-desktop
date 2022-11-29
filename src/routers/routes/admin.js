@@ -185,4 +185,14 @@ export const AdminRoutes = [
         permissions: ["admin"],
         guard: AuthGuard,
     },
+    {
+        path: "/print/registration",
+        component: lazy(() =>
+            import("../../pages/admin/registration_deposit/print_views")
+        ),
+        exact: true,
+        layout: "Admin",
+        permissions: ["admin"],
+        guard: AuthGuard,
+    },
 ];

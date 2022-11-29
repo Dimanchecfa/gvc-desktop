@@ -255,3 +255,12 @@ export const updatePayment = (id, data) => {
         return error;
     }
 };
+
+export const updateSell = (uuid, data) => {
+    try {
+        const response = HTTP_CLIENT.put(`sales/${uuid}`, data);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};

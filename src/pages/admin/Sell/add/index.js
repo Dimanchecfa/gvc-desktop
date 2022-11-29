@@ -10,8 +10,10 @@ import CommercialModal from "../components/commerciale-modal";
 import MotorsModal from "../components/numero-serie-modal";
 import moment from "moment";
 import { addSales } from "../../../../api/request";
+import { alertClosed, alertPending } from "../../../../components/sweet-alert";
 import dayjs from "dayjs";
 import { errorNotif, successNotif } from "../../../../components/notification";
+import { useNavigate } from "react-router-dom";
 
 const AddSales = () => {
     const {
@@ -79,8 +81,9 @@ const AddSales = () => {
             [name]: value,
         });
     };
-
-    const onSubmit = () => {
+    const navigate = useNavigate();
+    const onSubmit = async () => {
+        alertPending();
         if (
             !saleForm.numero_serie ||
             !saleForm.prix_vente ||
@@ -90,6 +93,7 @@ const AddSales = () => {
             !saleForm.adresse_client ||
             !saleForm.identifiant_client
         ) {
+            alertClosed();
             console.log("pl");
             setErrorForm({
                 date_versement: !saleForm.date_versement
@@ -132,20 +136,33 @@ const AddSales = () => {
             commercial_id: saleForm?.commercial_id,
             prix_vente: saleForm.prix_vente,
             montant_verse: saleForm.montant_verse,
-            montant_restant: saleForm.montant_restant,
+            montant_restant: saleForm.prix_vente - saleForm.montant_verse,
             nom_client: saleForm.nom_client,
             prenom_client: saleForm.prenom_client,
             numero_client: saleForm.numero_client,
             adresse_client: saleForm.adresse_client,
             identifiant_client: saleForm.identifiant_client,
             date_versement: saleForm.date_versement,
+            statut_payement:
+                saleForm.prix_vente == saleForm.montant_verse
+                    ? "terminé"
+                    : "en_cours",
         };
         console.log(data);
         try {
-            const response = addSales(data);
-            successNotif("Vente ajoutée avec succès");
+            const response = await addSales(data);
+            const dataResponse = response?.data;
+            console.log(dataResponse);
+            if (dataResponse?.success) {
+                alertClosed();
+                successNotif("Vente ajoutée avec succès");
+            } else {
+                alertClosed();
+                errorNotif("Cette moto a déjà été vendue");
+            }
         } catch (e) {
             console.log(e);
+            alertClosed();
 
             errorNotif("Une erreur est survenue");
         }

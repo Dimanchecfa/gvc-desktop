@@ -1,8 +1,8 @@
 import moment from "moment";
-import { Badge } from "react-bootstrap";
+import { Badge, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const tableColums = (onClickBtn) => [
+const tableColums = (onClickBtn, onClickBtn2) => [
     {
         name: "NUMERO DE FACTURE",
         selector: (row) => row?.numero_facture,
@@ -44,11 +44,6 @@ const tableColums = (onClickBtn) => [
     {
         name: "COMMERCIAL",
         selector: (row) => row?.commerciale?.nom,
-        sortable: true,
-    },
-    {
-        name: "DATA DE VENTE",
-        selector: (row) => moment(row?.created_at).format("DD/MM/YYYY"),
         sortable: true,
     },
 ];

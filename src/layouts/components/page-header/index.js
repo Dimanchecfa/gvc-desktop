@@ -93,7 +93,7 @@ const PageHeader = ({ children, title }) => {
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                   <Link to={"/"}>
-                    <i className="zmdi zmdi-home zmdi-hc-lg"></i>
+                    <li class="">Home</li>
                   </Link>
                 </li>
                 {(urlPaths?.length > 1 ? urlPaths : [])?.map((urlPath, index) =>
@@ -112,9 +112,7 @@ const PageHeader = ({ children, title }) => {
                 ) : null}
               </ol>
             </div>
-            <div class="col-sm-8">
-                {children}
-            </div>
+            <div class="col-sm-8">{children}</div>
           </div>
         </div>
       </section>

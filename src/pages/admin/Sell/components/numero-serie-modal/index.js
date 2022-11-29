@@ -10,10 +10,10 @@ import Searcher from "../../../../../components/data-table-search";
 import ReactTooltip from "react-tooltip";
 import { fetchMotors, fetchMotorsStocked } from "../../../../../api/request";
 
-const MotorsModal = ({show , handleClose , handleSelected}) => {
+const MotorsModal = ({ show, handleClose, handleSelected }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = React.useState(false);
-  const [motors , setMotors] = React.useState([])
+  const [motors, setMotors] = React.useState([]);
   const [search, setSearch] = React.useState("");
 
   useEffect(() => {
@@ -50,12 +50,9 @@ const MotorsModal = ({show , handleClose , handleSelected}) => {
 
   return (
     <>
-      
       <Modal show={show} onHide={handleClose} size="xl">
         <Modal.Header closeButton>
-          <Modal.Title>
-            Choisissez la moto que vous voulez vendre
-          </Modal.Title>
+          <Modal.Title>Choisissez la moto que vous voulez vendre</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <DataTable
@@ -73,7 +70,10 @@ const MotorsModal = ({show , handleClose , handleSelected}) => {
             highlightOnHover
             pagination
             selectableRows
-            onSelectedRowsChange={(state) => handleSelected(state)}
+            onSelectedRowsChange={(state) => {
+              handleSelected(state);
+              console.log(state);
+            }}
             selectableRowsSingle
             selectableRowsHighlight
             pointerOnHover

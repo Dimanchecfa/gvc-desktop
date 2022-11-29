@@ -2,22 +2,25 @@ import { TextField } from "@mui/material";
 import React from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { addLot } from "../../../../api/request";
+import { useLocation, useNavigate } from "react-router-dom";
+import { editLot } from "../../../../api/request";
 import { BackButton } from "../../../../components/back-button";
 import { successNotif } from "../../../../components/notification";
 import PageHeader from "../../../../layouts/components/page-header";
 
-const AddLot = () => {
+const EditLot = () => {
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const navigate = useNavigate();
+    const { state } = useLocation();
+    console.log(state);
     const [form, setForm] = React.useState({
-        nom_depositaire: "",
-        numero_depositaire: "",
+        numero_lot: state?.numero_lot,
+        nom_depositaire: state?.nom_depositaire,
+        numero_depositaire: state?.numero_depositaire,
     });
     const [errorForm, setErrorForm] = React.useState({});
     const handlerInput = (e) => {
@@ -33,6 +36,7 @@ const AddLot = () => {
     const onSubmit = async () => {
         if (!form.nom_depositaire || !form.numero_depositaire) {
             setErrorForm({
+                numero_lot: !form.numero_lot ? "ce champ est obligatoire" : "",
                 nom_depositaire: !form.nom_depositaire
                     ? "ce champ est obligatoire"
                     : "",
@@ -43,22 +47,20 @@ const AddLot = () => {
             return;
         }
         try {
-            const response = await addLot(form);
-            const dataReceived = response?.data;
-            if (response.status === 200) {
-                navigate("/lot/details", { state: dataReceived?.data });
-                console.log(dataReceived);
-                successNotif("Lot ajouté avec succès");
+            const response = await editLot(state?.uuid, form);
+            const dataReceive = response?.data?.data;
+            if (response?.status === 200) {
+                successNotif("Modification effectuée avec succès");
+                navigate("/lot/details", { state: dataReceive });
             }
-            console.log("cest kekoi");
-        } catch (e) {
-            console.log(e);
+        } catch (err) {
+            console.log(err);
         }
     };
     return (
         <>
             <PageHeader title="Ajouter un lot">
-                <div className="col-md-3 offset-md-9">
+                <div className="col-md-12">
                     <BackButton />
                 </div>
             </PageHeader>
@@ -72,6 +74,27 @@ const AddLot = () => {
                                 </Card.Title>
                             </Card.Header>
                             <Card.Body>
+                                <Form.Group className="mb-3">
+                                    <TextField
+                                        id="outlined-basic"
+                                        label="Numéro du lot"
+                                        variant="outlined"
+                                        type="text"
+                                        value={form.numero_lot}
+                                        name="numero_lot"
+                                        onChange={handlerInput}
+                                        size="small"
+                                        fullWidth
+                                        onFocus={() =>
+                                            setErrorForm({
+                                                ...errorForm,
+                                                numero_lot: "",
+                                            })
+                                        }
+                                        error={!!errorForm.nom_fournisseur}
+                                        helperText={errorForm.nom_fournisseur}
+                                    />
+                                </Form.Group>
                                 <Form.Group className="mb-3">
                                     <TextField
                                         id="outlined-basic"
@@ -89,8 +112,8 @@ const AddLot = () => {
                                                 nom_depositaire: "",
                                             })
                                         }
-                                        error={!!errorForm.nom_depositaire}
-                                        helperText={errorForm.nom_depositaire}
+                                        error={!!errorForm.nom_fournisseur}
+                                        helperText={errorForm.nom_fournisseur}
                                     />
                                 </Form.Group>
                                 <Form.Group className="mb-3">
@@ -100,7 +123,7 @@ const AddLot = () => {
                                         variant="outlined"
                                         type="text"
                                         value={form.numero_depositaire}
-                                        name="numero_depositaire"
+                                        name="numero_fournisseur"
                                         onChange={handlerInput}
                                         size="small"
                                         fullWidth
@@ -130,4 +153,4 @@ const AddLot = () => {
     );
 };
 
-export default AddLot;
+export default EditLot;

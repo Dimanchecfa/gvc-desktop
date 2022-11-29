@@ -11,17 +11,17 @@ const tableColums = (onClickBtn) => [
     },
     {
         name: "NOM DU DEPOSANT",
-        selector: (row) => row?.nom_depositeur,
+        selector: (row) => row?.nom_depositaire,
         sortable: true,
     },
     {
         name: "NUMERO DU DEPOSANT",
-        selector: (row) => row?.numero_depositeur,
+        selector: (row) => row?.numero_depositaire,
 
         sortable: true,
     },
     {
-        name: "NOMBRE DE DEPOT",
+        name: "NOMBRE DE MOTO",
         selector: (row) => row?.nombre_registrations,
         sortable: true,
     },

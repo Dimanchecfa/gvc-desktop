@@ -18,7 +18,7 @@ export const basicNotif = (title, message, status = "secondary") => {
         {
             transition: Slide,
             hideProgressBar: true,
-            autoClose: 5000,
+            autoClose: 2000,
             closeButton: true,
         }
     );
@@ -35,7 +35,7 @@ export const successNotif = (title, message, status = "success") => {
         {
             transition: Slide,
             // hideProgressBar: true,
-            autoClose: 5000,
+            autoClose: 1500,
             closeButton: true,
         }
     );
@@ -52,7 +52,7 @@ export const errorNotif = (title, message, status = "danger") => {
         {
             transition: Slide,
             hideProgressBar: true,
-            autoClose: 5000,
+            autoClose: 1500,
             closeButton: true,
         }
     );
@@ -69,7 +69,7 @@ export const warningNotif = (title, message, status = "warning") => {
         {
             transition: Slide,
             hideProgressBar: true,
-            autoClose: 5000,
+            autoClose: 1500,
             closeButton: true,
         }
     );

@@ -1,4 +1,3 @@
-
 const tableColums = (onClickBtn) => [
     {
         name: "PSEUDO",
@@ -20,8 +19,6 @@ const tableColums = (onClickBtn) => [
         selector: (row) => row?.numero,
         sortable: true,
     },
-    
-    
 ];
 
 export default tableColums;

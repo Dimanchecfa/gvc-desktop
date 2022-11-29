@@ -1,7 +1,5 @@
-import { Avatar } from "@mui/material";
 import moment from "moment";
 import { Badge } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
 const tableColums = (onClickBtn) => [
     {
@@ -17,7 +15,6 @@ const tableColums = (onClickBtn) => [
     {
         name: "MODELE",
         selector: (row) => row?.modele,
-
         sortable: true,
     },
     {
@@ -30,11 +27,11 @@ const tableColums = (onClickBtn) => [
         selector: (row) => (
             <>
                 {row?.statut === "en_stock" ? (
-                    <Badge bg="success" size="xl">
+                    <Badge bg="success" size="lg">
                         {row?.statut}
                     </Badge>
                 ) : (
-                    <Badge bg="danger" size="xl">
+                    <Badge bg="danger" size="lg">
                         {row?.statut}
                     </Badge>
                 )}
@@ -42,6 +39,10 @@ const tableColums = (onClickBtn) => [
         ),
         sortable: true,
     },
+    {
+        name: "DATE D'ARRIVEE",
+        selector: (row) => moment(row?.updated_at).format("DD/MM/YYYY"),
+        sortable: true,
+    },
 ];
-
 export default tableColums;

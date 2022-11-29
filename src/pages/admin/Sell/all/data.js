@@ -23,20 +23,15 @@ const tableColums = (onClickBtn) => [
         name: "STATUT",
         selector: (row) => (
             <>
-                {
-                    row?.statut === "en_cours" ? (
-                        <Badge className="text-white bg-success" bg="">
-                        <small>
-                            {row?.statut}
-                        </small>
+                {row?.statut_payement === "en_cours" ? (
+                    <Badge className="text-white bg-success" bg="">
+                        {row?.statut_payement}
                     </Badge>
-                    ) : (
-                        <Badge className="text-white bg-danger" bg="">
-                        <small>
-                            {row?.statut}
-                        </small>
+                ) : (
+                    <Badge className="text-white bg-danger" bg="">
+                        {row?.statut_payement}
                     </Badge>
-                    )}
+                )}
             </>
         ),
         sortable: true,

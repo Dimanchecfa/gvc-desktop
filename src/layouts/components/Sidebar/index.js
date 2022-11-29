@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { DashboardIcon } from "../../../components/icones";
 
 const Sidebar = ({ menuElements }) => {
   const url = window.location.pathname;
   console.log(url);
-  const [selected , setSelected] = React.useState(null);
+  const [selected, setSelected] = React.useState(null);
   return (
     <div>
       <aside className="main-sidebar sidebar-dark-primary elevation-4">
@@ -28,32 +29,44 @@ const Sidebar = ({ menuElements }) => {
               data-accordion="false"
             >
               {menuElements.map((menuElement, index) => {
-                if(!menuElement?.navItems)
-                {
+                if (!menuElement?.navItems) {
                   return (
                     <>
                       <li className="nav-item active">
-                          <Link  className={`nav-link ${selected === menuElement.id || url === menuElement.link ? 'active' : ''}`} onClick={() => setSelected(menuElement.id)} to={menuElement.link}>
-                            <i className="nav-icon fas fa-circle" />
-                            <p>
-                              {menuElement.title}
-                            </p>
-                          </Link>
-                        </li>
+                        <Link
+                          className={`nav-link ${
+                            selected === menuElement.id ||
+                            url === menuElement.link
+                              ? "active"
+                              : ""
+                          }`}
+                          onClick={() => setSelected(menuElement.id)}
+                          to={menuElement.link}
+                        >
+                          {menuElement.icon}
+                          <p>{menuElement.title}</p>
+                        </Link>
+                      </li>
                     </>
-                  )
+                  );
                 }
                 return (
                   <>
-                    <li className="nav-header">---{" "}{menuElement?.header}</li>
+                    <li className="nav-header">--- {menuElement?.header}</li>
                     {menuElement.navItems.map((navItem) => {
                       return (
                         <li className="nav-item active">
-                          <Link  className={`nav-link ${selected === navItem.id || url === navItem.link ? 'active' : ''}`} onClick={() => setSelected(navItem.id)} to={navItem.link}>
-                            <i className="nav-icon fas fa-circle" />
-                            <p>
-                              {navItem.title}
-                            </p>
+                          <Link
+                            className={`nav-link ${
+                              selected === navItem.id || url === navItem.link
+                                ? "active"
+                                : ""
+                            }`}
+                            onClick={() => setSelected(navItem.id)}
+                            to={navItem.link}
+                          >
+                            {navItem.icon}
+                            <p>{navItem.title}</p>
                           </Link>
                         </li>
                       );

@@ -8,29 +8,40 @@ import PaginationPage from "../../../../../components/paginate";
 import { errorNotif } from "../../../../../components/notification";
 import Searcher from "../../../../../components/data-table-search";
 import ReactTooltip from "react-tooltip";
-import { fetchFinishedSalesAndNotRegisteredAndMotorsCertified, fetchMotors } from "../../../../../api/request";
+import {
+  fetchFinishedSalesAndNotRegisteredAndMotorsCertified,
+  fetchMotors,
+} from "../../../../../api/request";
 import { TextField } from "@mui/material";
 
-const RegistredModal = ({show , handleClose , handleSelected }) => {
+const RegistredModal = ({
+  show,
+  handleClose,
+  handleSelected,
+  handleSubmit,
+}) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = React.useState(false);
-  const [motors , setMotors] = React.useState([])
+  const [motors, setMotors] = React.useState([]);
   const [search, setSearch] = React.useState("");
 
   useEffect(() => {
     (async () => await fetchMotorsData())();
-  }, [search]);
+  }, [search, show]);
 
   const fetchMotorsData = async () => {
     try {
       setMotors([]);
       setIsLoading(true);
-      const response = await fetchFinishedSalesAndNotRegisteredAndMotorsCertified();
+      const response =
+        await fetchFinishedSalesAndNotRegisteredAndMotorsCertified();
       const dataReceive = response?.data ?? null;
       const _finishedSales = dataReceive?.data ?? [];
       console.log(_finishedSales);
       const filterdMotors = _finishedSales?.filter((data) => {
-        return data?.moto?.numero_serie?.toLowerCase().match(search?.toLowerCase());
+        return data?.moto?.numero_serie
+          ?.toLowerCase()
+          .match(search?.toLowerCase());
       });
       if (_finishedSales?.length > 0) {
         setMotors(filterdMotors);
@@ -51,7 +62,6 @@ const RegistredModal = ({show , handleClose , handleSelected }) => {
 
   return (
     <>
-      
       <Modal show={show} onHide={handleClose} size="xl">
         <Modal.Header closeButton>
           <Modal.Title>
@@ -73,8 +83,8 @@ const RegistredModal = ({show , handleClose , handleSelected }) => {
             progressComponent={<Spinner />}
             highlightOnHover
             pagination
-            contextActions={ 
-              <TextField 
+            contextActions={
+              <TextField
                 label="Rechercher"
                 variant="outlined"
                 size="small"
@@ -99,7 +109,7 @@ const RegistredModal = ({show , handleClose , handleSelected }) => {
           <Button variant="secondary" onClick={handleClose}>
             Fermer
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleSubmit}>
             Enregistrer
           </Button>
         </Modal.Footer>

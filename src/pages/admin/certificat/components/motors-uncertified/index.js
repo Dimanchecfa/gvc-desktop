@@ -9,14 +9,19 @@ import NotDataBox from "../../../../../components/no-data";
 import { errorNotif } from "../../../../../components/notification";
 import tableColums from "./data";
 
-const MotorsUncertifiedModal = ({ show, handleClose, handleSubmit, handleSelect }) => {
+const MotorsUncertifiedModal = ({
+  show,
+  handleClose,
+  handleSubmit,
+  handleSelect,
+}) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [MotorsUncertified, setMotorsUncertified] = React.useState([]);
   const [search, setSearch] = React.useState("");
 
   useEffect(() => {
     (async () => await fetchMotorsCertifiedData())();
-  }, [search]);
+  }, [search, show]);
   const fetchMotorsCertifiedData = async () => {
     try {
       setMotorsUncertified([]);
@@ -46,7 +51,7 @@ const MotorsUncertifiedModal = ({ show, handleClose, handleSubmit, handleSelect 
     <>
       <Modal show={show} onHide={handleClose} size="xl">
         <Modal.Header closeButton>
-          <Modal.Title>Choisissez la moto que vous voulez vendre</Modal.Title>
+          <Modal.Title>Choisissez la moto </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <DataTable
@@ -62,15 +67,17 @@ const MotorsUncertifiedModal = ({ show, handleClose, handleSubmit, handleSelect 
             onRowClicked={onClickRow}
             progressComponent={<Spinner />}
             pagination
-            contextActions={<>
-             <TextField 
-            label="Rechercher"
-                variant="outlined"
-                size="small"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
+            contextActions={
+              <>
+                <TextField
+                  label="Rechercher"
+                  variant="outlined"
+                  size="small"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
                 />
-              </>}
+              </>
+            }
             selectableRows
             onSelectedRowsChange={(state) => handleSelect(state)}
             striped

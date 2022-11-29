@@ -1,48 +1,38 @@
 import React, { useEffect } from "react";
-import { Button, Card, Spinner } from "react-bootstrap";
+import { Card, Spinner } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
-import PageHeader from "../../../../layouts/components/page-header";
-import NotDataBox from "../../../../components/no-data";
-import PaginationPage from "../../../../components/paginate";
-import { errorNotif } from "../../../../components/notification";
-import Searcher from "../../../../components/data-table-search";
 import ReactTooltip from "react-tooltip";
-import {
-  fetchLots,
-  fetchSales,
-  fetchStock,
-  generateLotPdf,
-} from "../../../../api/request";
+import { fetchMotorsStocked } from "../../../../api/request";
+import Searcher from "../../../../components/data-table-search";
+import NotDataBox from "../../../../components/no-data";
+import { errorNotif } from "../../../../components/notification";
+import PageHeader from "../../../../layouts/components/page-header";
 import tableColums from "./data";
 
-const Stock = () => {
+const MotorsStocked = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = React.useState(false);
-  const [lots, setLots] = React.useState([]);
+  const [motorsStocked, setMotorsStocked] = React.useState([]);
   const [search, setSearch] = React.useState("");
 
   useEffect(() => {
-    (async () => await fetchRegistredLot())();
+    (async () => await fetchMotorsStockedData())();
   }, [search]);
 
-  const fetchRegistredLot = async () => {
+  const fetchMotorsStockedData = async () => {
     try {
-      setLots([]);
+      setMotorsStocked([]);
       setIsLoading(true);
-      const response = await fetchLots();
+      const response = await fetchMotorsStocked();
       const dataReceive = response?.data ?? null;
       const _lots = dataReceive?.data ?? [];
       console.log(_lots);
       const filterdLot = _lots?.filter((data) => {
-        return (
-          data?.numero_lot?.toLowerCase().match(search?.toLowerCase()) ||
-          data?.nom_depositeur?.toLowerCase().match(search?.toLowerCase()) ||
-          data?.numero_depositeur?.toLowerCase().match(search?.toLowerCase())
-        );
+        return data?.numero_serie?.toLowerCase().match(search?.toLowerCase());
       });
       if (_lots?.length > 0) {
-        setLots(filterdLot);
+        setMotorsStocked(filterdLot);
       }
       setIsLoading(false);
     } catch (error) {
@@ -53,32 +43,19 @@ const Stock = () => {
       }
     }
   };
-
   const onClickRow = (row, action = null) => {
-    // navigate(`/lot/details`, {state: {uuid: row.uuid , registrations : row.registrations}})
-    const response = generateLotPdf(row.id);
-    console.log(response);
+    navigate(`/lot/details`, {
+      state: { uuid: row.uuid, registrations: row.registrations },
+    });
   };
-
   return (
     <>
-      <PageHeader title="Stock">
-        <div className="offset-sm-10 col-sm-9">
-          <Button
-            className="mr-2"
-            variant="primary"
-            size="md"
-            onClick={() => navigate("/lot/add")}
-          >
-            Ajouter un lot
-          </Button>
-        </div>
-      </PageHeader>
+      <PageHeader title="Listes des motos en stock"></PageHeader>
       <Card body>
         <>
           <DataTable
             columns={tableColums(onClickRow)}
-            data={lots}
+            data={motorsStocked}
             title={
               <Searcher
                 placeholder={"Entrer le numéro du journal"}
@@ -86,7 +63,6 @@ const Stock = () => {
                 value={search}
               />
             }
-            onRowClicked={onClickRow}
             progressComponent={<Spinner />}
             highlightOnHover
             pagination
@@ -107,4 +83,4 @@ const Stock = () => {
   );
 };
 
-export default Stock;
+export default MotorsStocked;

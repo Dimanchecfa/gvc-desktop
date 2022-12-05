@@ -25,10 +25,11 @@ const AddCommercial = () => {
     };
 
     const [form, setForm] = useState({
-        nom: "",
-        prenom: "",
-        pseudo: "",
-        telephone: "",
+        nom: state?.nom,
+        prenom: state?.prenom,
+        pseudo: state?.pseudo,
+        numero: state?.numero,
+        numero2: state?.numero2,
         logo: "",
     });
     const [errorForm, setErrorForm] = useState({});

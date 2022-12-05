@@ -51,7 +51,7 @@ const Stock = () => {
 
     return (
         <>
-            <PageHeader title="Stock">
+            <PageHeader title="Listes des commerciaux">
                 <div className="offset-sm-10 col-sm-9">
                     <Button
                         size="sm"

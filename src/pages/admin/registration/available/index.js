@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card, Spinner } from "react-bootstrap";
+import { Button, Card, Spinner } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
@@ -59,7 +59,13 @@ const Finishedregistration = () => {
 
     return (
         <>
-            <PageHeader title="Listes des immatricuélations disponibles"></PageHeader>
+            <PageHeader title="Listes des immatricuélations disponibles">
+                <div className="col-md-2 offset-md-9">
+                    <Button variant="primary" onClick={() => navigate(-1)}>
+                        Disponibiliser
+                    </Button>
+                </div>
+            </PageHeader>
             <WithdrawModal
                 show={show}
                 handleClose={() => setShow(false)}
